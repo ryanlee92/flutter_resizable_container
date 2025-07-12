@@ -26,8 +26,7 @@ class ResizableContainerDivider extends StatefulWidget {
   final ResizableDivider config;
 
   @override
-  State<ResizableContainerDivider> createState() =>
-      _ResizableContainerDividerState();
+  State<ResizableContainerDivider> createState() => _ResizableContainerDividerState();
 }
 
 class _ResizableContainerDividerState extends State<ResizableContainerDivider> {
@@ -67,16 +66,18 @@ class _ResizableContainerDividerState extends State<ResizableContainerDivider> {
             onHorizontalDragEnd: _onHorizontalDragEnd,
             onTapDown: _onTapDown,
             onTapUp: _onTapUp,
-            child: CustomPaint(
-              size: Size(width, height),
-              painter: DividerPainter(
-                direction: widget.direction,
-                color: widget.config.color ?? Theme.of(context).dividerColor,
-                thickness: widget.config.thickness,
-                crossAxisAlignment: widget.config.crossAxisAlignment,
-                length: widget.config.length,
-                mainAxisAlignment: widget.config.mainAxisAlignment,
-                padding: widget.config.padding,
+            child: RepaintBoundary(
+              child: CustomPaint(
+                size: Size(width, height),
+                painter: DividerPainter(
+                  direction: widget.direction,
+                  color: widget.config.color ?? Theme.of(context).dividerColor,
+                  thickness: widget.config.thickness,
+                  crossAxisAlignment: widget.config.crossAxisAlignment,
+                  length: widget.config.length,
+                  mainAxisAlignment: widget.config.mainAxisAlignment,
+                  padding: widget.config.padding,
+                ),
               ),
             ),
           ),
@@ -87,8 +88,7 @@ class _ResizableContainerDividerState extends State<ResizableContainerDivider> {
 
   MouseCursor _getCursor() {
     return switch (widget.direction) {
-      Axis.horizontal =>
-        widget.config.cursor ?? SystemMouseCursors.resizeLeftRight,
+      Axis.horizontal => widget.config.cursor ?? SystemMouseCursors.resizeLeftRight,
       Axis.vertical => widget.config.cursor ?? SystemMouseCursors.resizeUpDown,
     };
   }
